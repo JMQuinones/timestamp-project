@@ -29,9 +29,11 @@ app.get("/api/", (req, res) => {
 app.get("/api/:date", (req, res) => {
   console.log("params", req.params.date, typeof req.params.date);
 
-  const date = req.params.date.includes("-")
-    ? new Date(req.params.date)
-    : new Date(Number(req.params.date));
+  const REGEX = /^[0-9]*$/;
+  //const date = req.params.date.includes("-") ? new Date(req.params.date) : new Date(Number(req.params.date));
+  const date = REGEX.test(req.params.date)
+    ? new Date(Number(req.params.date))
+    : new Date(req.params.date);
 
   if (date != "Invalid Date") {
     res.json({
